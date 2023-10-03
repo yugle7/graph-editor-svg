@@ -1,6 +1,6 @@
 <script>
 	import { getColor } from '$lib/color';
-	import { mode, selectedEllipse } from '$lib/store';
+	import { selectedEllipse } from '$lib/store';
 
 	export let ellipse;
 	export let edit = true;
@@ -8,7 +8,7 @@
 	$: opacity = edit && $selectedEllipse && ellipse != $selectedEllipse ? 0.5 : 1;
 
 	const d = 5;
-	const h = 10;
+	const h = 12;
 </script>
 
 {#if edit}
@@ -23,7 +23,7 @@
 		style="transform-origin: {ellipse.center.x}px {ellipse.center.y}px;
 	transform: rotate({ellipse.a}deg)"
 	/>
-	{#if $mode === 'ellipse' && $selectedEllipse == ellipse}
+	{#if $selectedEllipse == ellipse}
 		<line
 			x1={ellipse.center.x + ellipse.rx - d}
 			y1={ellipse.center.y}

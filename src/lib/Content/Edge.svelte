@@ -7,7 +7,7 @@
 
 	$: opacity = edit && $selectedEdge && edge != $selectedEdge ? 0.3 : 0.7;
 
-	const h = 10;
+	const h = 16;
 
 	$: d = 7 + edge.width;
 	$: r = edge.end.radius;
@@ -58,7 +58,7 @@
 	{#if l > 0}
 		<text
 			{x}
-			y={y + 14}
+			y={y + 20}
 			fill="gray"
 			stroke-width="0"
 			style="transform-origin: {x}px {y}px;

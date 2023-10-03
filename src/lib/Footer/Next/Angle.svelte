@@ -3,15 +3,15 @@
 	import { getLength } from '$lib/name';
 	import { mode, nextAngle } from '$lib/store';
 
-	const r = 15;
-	const R = r + 10;
+	const r = 30;
+	const R = r + 20;
 
 	const a = 60;
 	const b = (a * Math.PI) / 180;
 	const sin = Math.sin(b);
 	const cos = Math.cos(b);
 
-	const d = 2;
+	const d = 4;
 
 	const w = R + 2 * d;
 	const h = R + 2 * d;
@@ -61,8 +61,8 @@
 
 	input {
 		position: absolute;
-		top: 5px;
-		left: 20px;
+		top: 20px;
+		left: 40px;
 		padding: 0;
 		margin: 0;
 	}

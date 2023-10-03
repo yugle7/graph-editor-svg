@@ -18,7 +18,7 @@
 	--font-4: 24px;
 	--font-5: 28px;
 
-	font-size: var(--font-0);
+	font-size: var(--font-3);
 
 	--color-8: rgba(40, 50, 60);
 	--color-7: rgb(50, 60, 70);
@@ -101,8 +101,10 @@ h3 {
 	font-size: var(--font-2);
 }
 
+svg,
 input,
 button {
+	font-style: inherit;
 	font-size: inherit;
 	font-family: inherit;
 	transition: all 0.3s ease-in;
@@ -113,9 +115,6 @@ ul {
 	padding: 0;
 	margin: 0;
 }
-
-
-
 
 
 input,
@@ -129,8 +128,6 @@ a {
 }
 
 svg {
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-style: italic;
 	width: 100vw;
 	height: 100vh;
 	display: block;
@@ -157,7 +154,6 @@ button:disabled {
 }
 
 .button {
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 	width: fit-content;
 	background-color: var(--color-4);
 	color: var(--color-0);
@@ -195,4 +191,12 @@ input::placeholder {
 	border-radius: 7px;
 	color: var(--color-7);
 	outline: none;
+}
+
+img {
+	width: 40px;
+}
+
+.image {
+	width: auto;
 }

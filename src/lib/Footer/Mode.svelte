@@ -13,7 +13,7 @@
 
 <button
 	style="opacity:{$mode === 'node' ? 1 : 0.5}"
-	on:click={() => {
+	on:click|stopPropagation|preventDefault={() => {
 		$mode = 'node';
 	}}
 >
@@ -25,7 +25,7 @@
 </button>
 <button
 	style="opacity:{$mode === 'ellipse' ? 1 : 0.5}"
-	on:click={() => {
+	on:click|stopPropagation|preventDefault={() => {
 		$mode = 'ellipse';
 	}}
 >
@@ -37,7 +37,7 @@
 </button>
 <button
 	style="opacity:{$mode === 'angle' ? 1 : 0.5}"
-	on:click={() => {
+	on:click|stopPropagation|preventDefault={() => {
 		$mode = 'angle';
 	}}
 >
@@ -49,7 +49,7 @@
 </button>
 <button
 	style="opacity:{$mode === 'edge' ? 1 : 0.5}"
-	on:click={() => {
+	on:click|stopPropagation|preventDefault={() => {
 		$mode = 'edge';
 	}}
 >

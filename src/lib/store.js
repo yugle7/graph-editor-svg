@@ -2,7 +2,7 @@ import { readable, writable } from "svelte/store";
 
 export const nextNode = writable({
     name: 'A++',
-    radius: 3,
+    radius: 5,
     color: 0
 });
 
@@ -15,8 +15,8 @@ export const nextEdge = writable({
 export const nextEllipse = writable({
     width: 1,
     color: 0,
-    rx: 40,
-    ry: 40,
+    rx: 80,
+    ry: 80,
     a: 0
 });
 

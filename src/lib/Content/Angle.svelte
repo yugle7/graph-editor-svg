@@ -18,8 +18,8 @@
 
 	$: name = getName(angle.name);
 
-	const r = angle.center.radius + 6;
-	const h = 4;
+	const r = angle.center.radius + 12;
+	const h = 6;
 
 	$: cx = angle.center.x;
 	$: cy = angle.center.y;

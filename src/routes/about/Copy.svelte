@@ -13,11 +13,7 @@
 <p>
 	{key}: <code>{value}</code>
 	<button on:click={copy}>
-		<img
-			width="16px"
-			src="Outline/Communication/{$copied === value ? 'Copied' : 'Copy'}.svg"
-			alt="copy"
-		/>
+		<img src="Outline/Communication/{$copied === value ? 'Copied' : 'Copy'}.svg" alt="copy" />
 	</button>
 </p>
 
@@ -25,12 +21,14 @@
 	p {
 		padding: 0;
 	}
-  button {
-    padding-left: 2px;
-    opacity: 0.8;
-  }
-
+	button {
+		padding-left: 2px;
+		opacity: 0.8;
+	}
 	button:hover {
 		opacity: 0.5;
+	}
+	img {
+		width: 16px;
 	}
 </style>

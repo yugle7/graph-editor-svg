@@ -4,10 +4,10 @@
 
 	import { getLength } from '$lib/name';
 
-	const ry = 13;
-	const rx = 13;
+	const ry = 26;
+	const rx = 26;
 
-	const d = 3;
+	const d = 6;
 
 	$: w = 2 * rx + d + 1;
 	$: h = 2 * ry + d + 1;
@@ -28,17 +28,17 @@
 		$selectedEllipse.a = a;
 		angle = String(a);
 	}
-	let angle = String($selectedEllipse?.a);
+	let angle = String($selectedEllipse.a);
 
 	$: if ($changeEllipse) {
 		angle = String($selectedEllipse.a);
 	}
-	
+
 	$: console.log($selectedEllipse);
 </script>
 
 {#if $selectedEllipse}
-	<div style="width:{w + 18 + getLength(angle)}px">
+	<div style="width:{w + 36 + getLength(angle)}px">
 		<button
 			on:click={() => {
 				if ($mode === 'ellipse') {
@@ -73,8 +73,8 @@
 	}
 	span {
 		position: absolute;
-		top: 5px;
-		left: 25px;
+		top: 10px;
+		left: 55px;
 		color: gray;
 	}
 	input {

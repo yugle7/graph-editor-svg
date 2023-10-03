@@ -11,7 +11,7 @@
 	onMount(() => {
 		const canvas = document.createElement('canvas');
 		$ctx = canvas.getContext('2d');
-		$ctx.font = '14px Georgia';
+		$ctx.font = '20px Georgia';
 	});
 </script>
 

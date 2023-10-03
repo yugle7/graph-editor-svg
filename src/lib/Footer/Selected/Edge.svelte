@@ -3,7 +3,9 @@
 	import { getLength } from '$lib/name';
 
 	$: l = getLength($selectedEdge.name);
-	$: d = 7 + $selectedEdge.width;
+	$: d = 8 + $selectedEdge.width;
+
+	const x = 40;
 
 	$: w = 2 * x + l;
 	$: h = 2 * d;
@@ -12,8 +14,6 @@
 	$: y1 = d;
 	$: x2 = w - d;
 	$: y2 = d;
-
-	const x = 30;
 
 	const stroke = 'black';
 </script>
@@ -54,7 +54,7 @@
 	input {
 		padding: 0;
 		margin: 0;
-		margin-top: -5px;
+		margin-top: -8px;
 		text-align: center;
 	}
 </style>

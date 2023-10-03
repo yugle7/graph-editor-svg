@@ -12,7 +12,7 @@
 	<h2>{graph.title}</h2>
 	<div class="outer">
 		<div class="inner">
-			<img src={url} alt={graph.title} />
+			<img class="image" src={url} alt={graph.title} />
 		</div>
 		<button on:click|stopPropagation|preventDefault={() => dispatch('delete')}>
 			<img src="Outline/Interface/Cross.svg" alt="delete" />
@@ -46,7 +46,6 @@
 		top: 0;
 		right: 0;
 		opacity: 0.5;
-
 	}
 	button:hover {
 		opacity: 1;

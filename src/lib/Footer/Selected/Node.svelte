@@ -6,13 +6,13 @@
 	$: r = $selectedNode.radius;
 
 	$: h = 2 * r;
-	$: w = h + 4;
+	$: w = h + 16;
 
-	$: cx = h / 2;
-	$: cy = cx;
+	$: cx = w / 2;
+	$: cy = h / 2;
 </script>
 
-<div style="width:{w + 10 + getLength($selectedNode.name)}px">
+<div style="width:{w + 20 + getLength($selectedNode.name)}px">
 	<button
 		on:click={() => {
 			if ($mode === 'node') {
@@ -35,8 +35,8 @@
 	input {
 		padding: 0;
 		margin: 0;
-		text-indent: 2px;
-		margin-left: -3px;
+		text-indent: 3px;
+		margin-left: -4px;
 		width: 100%;
 	}
 </style>

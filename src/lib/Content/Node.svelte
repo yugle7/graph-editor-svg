@@ -8,10 +8,10 @@
 
 	$: opacity = edit && $selectedNode && node != $selectedNode ? 0.5 : 1;
 
-	const R = 10;
+	const R = 16;
 	$: r = node.radius;
 
-	const h = 12;
+	const h = 20;
 	$: l = getLength(node.name);
 
 	const s = [1, 0.7, 0, -0.7, -1, -0.7, 0, 0.7, 1, 0.7];

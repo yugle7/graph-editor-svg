@@ -55,11 +55,11 @@
 					$edit = true;
 				}}
 			>
-				<img src={url} alt="graph" />
+				<img class="image" src={url} alt="graph" />
 			</button>
 		{:else}
 			<h2>{graph.title}</h2>
-			<img src={url} alt="graph" />
+			<img class="image" src={url} alt="graph" />
 		{/if}
 	{/if}
 </div>

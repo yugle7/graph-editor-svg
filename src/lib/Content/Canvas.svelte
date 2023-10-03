@@ -29,22 +29,30 @@
 	let moveNode = false;
 	$changeEllipse = false;
 
-	let mouse = { x: 0, y: 0 };
+	let graph;
+
+	let point = { x: 0, y: 0 };
 	const timer = { o: null, O: 500 };
 
-	function followMouse(e) {
-		mouse.x = Math.floor(e.clientX);
-		mouse.y = Math.floor(e.clientY);
-
-		let x = 10 * Math.floor(mouse.x / 10 + 0.5);
-		let y = 10 * Math.floor(mouse.y / 10 + 0.5);
+	function mouse(e) {
+		point.x = Math.floor(e.clientX);
+		point.y = Math.floor(e.clientY);
+	}
+	function touch(e) {
+		let rect = graph.getBoundingClientRect();
+		point.x = Math.floor(e.touches[0].clientX) - rect.left;
+		point.y = Math.floor(e.touches[0].clientY) - rect.top;
+	}
+	function move() {
+		let x = 10 * Math.floor(point.x / 10 + 0.5);
+		let y = 10 * Math.floor(point.y / 10 + 0.5);
 
 		const d = 2;
-		if (Math.abs(mouse.x - x) <= d) {
-			mouse.x = x;
+		if (Math.abs(point.x - x) <= d) {
+			point.x = x;
 		}
-		if (Math.abs(mouse.y - y) <= d) {
-			mouse.y = y;
+		if (Math.abs(point.y - y) <= d) {
+			point.y = y;
 		}
 
 		if (moveNode) {
@@ -52,6 +60,31 @@
 		} else if ($changeEllipse) {
 			ellipseChange();
 		}
+	}
+	function stop() {
+		if (moveNode) {
+			moveNode = false;
+			if (timer.o && Date.now() - timer.o < timer.O) {
+				$selectedNode = null;
+			} else {
+				place($nodes, $edges);
+				$nodes = $nodes;
+			}
+		} else if ($changeEllipse) {
+			$changeEllipse = false;
+			if (timer.o && Date.now() - timer.o < timer.O) {
+				$selectedEllipse = null;
+			}
+		}
+	}
+
+	function mouseMove(e) {
+		mouse(e);
+		move();
+	}
+	function touchMove(e) {
+		touch(e);
+		move();
 	}
 
 	// angle
@@ -156,6 +189,7 @@
 	}
 	function selectEllipse(ellipse) {
 		$selectedEllipse = ellipse;
+		startEllipseChange();
 	}
 	$: if ($selectedEllipse) {
 		$ellipses = $ellipses;
@@ -164,8 +198,8 @@
 	let R, A;
 
 	function startEllipseChange() {
-		const r = distance($selectedEllipse.center, mouse);
-		const a = deg($selectedEllipse.center, mouse);
+		const r = distance($selectedEllipse.center, point);
+		const a = deg($selectedEllipse.center, point);
 
 		if (Math.abs(a - $selectedEllipse.a) < 10) {
 			$selectedEllipse.a = a;
@@ -180,13 +214,12 @@
 			};
 		}
 		$changeEllipse = true;
+		timer.o = Date.now();
 	}
 	function ellipseChange() {
-		const r = distance($selectedEllipse.center, mouse);
-		if (r < 10) {
-			$changeEllipse = false;
-		} else {
-			const a = deg($selectedEllipse.center, mouse);
+		const r = distance($selectedEllipse.center, point);
+		if (r > 10) {
+			const a = deg($selectedEllipse.center, point);
 
 			if (A !== null) {
 				$selectedEllipse.rx = Math.floor(R.x * r + 0.5);
@@ -201,7 +234,6 @@
 
 	function handleEllipseCanvasClick() {
 		const node = addNextNode();
-
 		addNextEllipse(node);
 		selectNode(node);
 	}
@@ -210,7 +242,6 @@
 			removeEllipse(ellipse);
 		} else {
 			selectEllipse(ellipse);
-			startEllipseChange();
 		}
 	}
 
@@ -272,11 +303,7 @@
 		edge.type = type;
 	}
 	function selectEdge(edge) {
-		if ($selectedEdge == edge) {
-			$selectedEdge = null;
-		} else {
-			$selectedEdge = edge;
-		}
+		$selectedEdge = $selectedEdge == edge ? null : edge;
 	}
 	$: if ($selectedEdge) {
 		$edges = $edges;
@@ -347,7 +374,7 @@
 	function getNextNode() {
 		const node = {
 			id: crypto.randomUUID(),
-			...mouse,
+			...point,
 			...$nextNode
 		};
 		const name = getName($nextNode.name);
@@ -373,6 +400,7 @@
 		$undo = $undo;
 	}
 	function selectNode(node) {
+		timer.o = $selectedNode == node ? Date.now() : null;
 		$selectedNode = node;
 		moveNode = true;
 	}
@@ -384,8 +412,8 @@
 	}
 
 	function nodeMove() {
-		$selectedNode.x = mouse.x;
-		$selectedNode.y = mouse.y;
+		$selectedNode.x = point.x;
+		$selectedNode.y = point.y;
 	}
 
 	function handleNodeCanvasClick() {
@@ -453,12 +481,16 @@
 	}
 
 	onMount(() => {
-		window.addEventListener('mousemove', followMouse);
-		window.addEventListener('touchmove', followMouse);
+		window.addEventListener('mousemove', mouseMove);
+		window.addEventListener('mouseup', stop);
+		window.addEventListener('touchmove', touchMove);
+		window.addEventListener('touchend', stop);
 
 		return () => {
-			window.removeEventListener('mousemove', followMouse);
-			window.removeEventListener('touchmove', followMouse);
+			window.removeEventListener('mousemove', mouseMove);
+			window.removeEventListener('mouseup', stop);
+			window.removeEventListener('touchmove', touchMove);
+			window.removeEventListener('touchend', stop);
 		};
 	});
 
@@ -474,32 +506,48 @@
 				handleAngleCanvasClick();
 			}
 		}
+		timer.o = null;
 	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<svg xmlns="http://www.w3.org/2000/svg" on:mousedown={handleCanvasClick}>
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	on:mousedown|preventDefault={(e) => {
+		mouse(e);
+		handleCanvasClick(e);
+	}}
+	on:touchstart|preventDefault={(e) => {
+		touch(e);
+		handleCanvasClick(e);
+	}}
+	bind:this={graph}
+>
 	{#each $edges as edge (edge.id)}
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<g on:mousedown|stopPropagation={() => handleEdgeClick(edge)}>
+		<g
+			on:mousedown={(e) => {
+				mouse(e);
+				handleEdgeClick(edge);
+			}}
+			on:touchstart={(e) => {
+				touch(e);
+				handleEdgeClick(edge);
+			}}
+		>
 			<Edge {edge} />
 		</g>
 	{/each}
 	{#each $nodes as node (node.id)}
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<g
-			on:mousedown|stopPropagation={() => {
-				timer.o = $selectedNode == node ? Date.now() : null;
+			on:mousedown={(e) => {
+				mouse(e);
 				handleNodeClick(node);
 			}}
-			on:mouseup|stopPropagation={() => {
-				moveNode = false;
-				if (timer.o && Date.now() - timer.o < timer.O) {
-					$selectedNode = null;
-				} else {
-					place($nodes, $edges);
-					$nodes = $nodes;
-				}
+			on:touchstart={(e) => {
+				touch(e);
+				handleNodeClick(node);
 			}}
 		>
 			<Node {node} />
@@ -508,15 +556,13 @@
 	{#each $ellipses as ellipse (ellipse.id)}
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<g
-			on:mousedown|stopPropagation={() => {
-				timer.o = $selectedEllipse == ellipse ? Date.now() : null;
+			on:mousedown={(e) => {
+				mouse(e);
 				handleEllipseClick(ellipse);
 			}}
-			on:mouseup|stopPropagation={() => {
-				$changeEllipse = false;
-				if (timer.o && Date.now() - timer.o < timer.O) {
-					$selectedEllipse = null;
-				}
+			on:touchstart={(e) => {
+				touch(e);
+				handleEllipseClick(ellipse);
 			}}
 		>
 			<Ellipse {ellipse} />
@@ -524,7 +570,16 @@
 	{/each}
 	{#each $angles as angle (angle.id)}
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<g on:mousedown|stopPropagation={() => handleAngleClick(angle)}>
+		<g
+			on:mousedown={(e) => {
+				mouse(e);
+				handleAngleClick(angle);
+			}}
+			on:touchstart={(e) => {
+				touch(e);
+				handleAngleClick(angle);
+			}}
+		>
 			<Angle {angle} />
 		</g>
 	{/each}
@@ -534,7 +589,7 @@
 	svg {
 		background: linear-gradient(var(--color-1), transparent 1px),
 			linear-gradient(90deg, var(--color-1), transparent 1px);
-		background-size: 10px 10px;
+		background-size: 20px 20px;
 		background-position: top top;
 	}
 </style>

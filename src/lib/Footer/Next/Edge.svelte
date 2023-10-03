@@ -3,7 +3,9 @@
 	import { getLength } from '$lib/name';
 
 	$: l = getLength($nextEdge.name);
-	$: d = 7 + $nextEdge.width;
+	$: d = 8 + $nextEdge.width;
+
+	const x = 40;
 
 	$: w = 2 * x + l;
 	$: h = 2 * d;
@@ -12,8 +14,6 @@
 	$: y1 = d;
 	$: x2 = w - d;
 	$: y2 = d;
-
-	const x = 30;
 </script>
 
 <div>
@@ -39,7 +39,7 @@
 			{/if}
 		</svg>
 	</button>
-		<input style="width:{w}px" bind:value={$nextEdge.name} />
+	<input style="width:{w}px" bind:value={$nextEdge.name} />
 </div>
 
 <style>
@@ -52,7 +52,7 @@
 	input {
 		padding: 0;
 		margin: 0;
-		margin-top: -5px;
+		margin-top: -8px;
 		text-align: center;
 	}
 </style>
