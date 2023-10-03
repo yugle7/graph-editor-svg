@@ -1,0 +1,198 @@
+/* @import '@fontsource/fira-mono'; */
+
+:root {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-style: italic;
+	font-weight: 400;
+	line-height: 1.5;
+
+	/* font-family: 'YS Text', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.4; */
+
+	--font-0: 14px;
+	--font-1: 16px;
+	--font-2: 18px;
+	--font-3: 20px;
+	--font-4: 24px;
+	--font-5: 28px;
+
+	font-size: var(--font-0);
+
+	--color-8: rgba(40, 50, 60);
+	--color-7: rgb(50, 60, 70);
+	--color-6: rgb(60, 70, 80);
+	--color-5: rgb(85, 95, 105);
+	--color-4: rgb(115, 125, 135);
+	--color-3: rgb(145, 155, 165);
+	--color-2: rgb(175, 185, 195);
+	--color-1: rgb(224, 225, 226);
+	--color-0: rgb(248, 249, 250);
+
+	--color-red: rgb(185, 60, 60);
+	--color-green: rgb(30, 150, 30);
+	--color-blue: rgb(50, 50, 150);
+
+	--icon-filter: invert(30%);
+}
+
+[data-theme='dark'] {
+	--color-0: rgba(33, 35, 37);
+	--color-1: rgb(45, 50, 65);
+	--color-2: rgb(57, 65, 73);
+	--color-3: rgb(85, 95, 105);
+	--color-4: rgb(115, 125, 135);
+	--color-5: rgb(145, 155, 165);
+	--color-6: rgb(160, 170, 180);
+	--color-7: rgb(175, 185, 195);
+
+	--color-red: rgb(190, 60, 60);
+	--color-green: rgb(25, 140, 25);
+	--color-blue: rgb(105, 105, 220);
+
+	--icon-filter: invert(70%);
+}
+
+html {
+	background-color: var(--color-0);
+}
+
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	color: var(--color-7);
+	background-attachment: fixed;
+	background-color: var(--color-0);
+	background-size: 100vw 100vh;
+}
+
+h1,
+h2,
+p {
+	font-weight: 400;
+}
+
+p {
+	font-size: var(--font-2);
+	padding-bottom: 10px;
+}
+
+a {
+	color: var(--color-7);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+	color: var(--color-3);
+}
+
+h1 {
+	font-size: var(--font-4);
+}
+
+h2 {
+	font-size: var(--font-3);
+}
+
+h3 {
+	font-size: var(--font-2);
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+	transition: all 0.3s ease-in;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+
+
+input,
+textarea,
+button,
+select,
+svg,
+img,
+a {
+	-webkit-tap-highlight-color: transparent;
+}
+
+svg {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-style: italic;
+	width: 100vw;
+	height: 100vh;
+	display: block;
+}
+
+g {
+	cursor: pointer;
+}
+
+button {
+	border: none;
+	background: none;
+	cursor: pointer;
+	padding: 0;
+	margin: 0;
+}
+
+button:hover {
+	opacity: 0.7;
+}
+
+button:disabled {
+	opacity: 0.5;
+}
+
+.button {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	width: fit-content;
+	background-color: var(--color-4);
+	color: var(--color-0);
+	border: none;
+	border-radius: 7px;
+	cursor: pointer;
+	padding: 7px 10px;
+	margin: 3px;
+}
+
+
+input,
+input:active,
+input:focus,
+input:hover {
+	border: none;
+	background: none;
+	outline: none;
+}
+
+
+input {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin: 3px;
+	font-style: italic;
+	color: gray;
+}
+
+input::placeholder {
+	color: var(--color-4);
+}
+
+.input {
+	border-radius: 7px;
+	color: var(--color-7);
+	outline: none;
+}
